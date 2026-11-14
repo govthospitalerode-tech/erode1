@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico"/>
+  <link rel="apple-touch-icon" href="/public/favicon-192.png"/>
+  <link rel="shortcut icon" href="/public/favicon.ico"/>
+  <title>Patient Benefits — Thanthai Periyar Govt Hospital Erode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <style>
+    .patients-body { max-width:1100px; margin:0 auto; padding:64px 48px; }
+    .intro-block { background:linear-gradient(135deg,var(--primary-dk),var(--primary)); border-radius:var(--radius-lg); padding:40px 48px; margin-bottom:56px; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center; }
+    .intro-block h2 { font-family:'Manrope','Noto Sans Tamil',sans-serif; color:var(--white); font-size:clamp(20px,2.5vw,28px); margin-bottom:10px; }
+    .intro-block p { color:rgba(255,255,255,0.72); font-size:14px; line-height:1.7; }
+    .intro-stats { display:flex; flex-direction:column; gap:16px; text-align:right; }
+    .intro-stat-val { font-family:'Manrope','Noto Sans Tamil',sans-serif; font-size:32px; color:var(--secondary-lt); font-weight:700; line-height:1; }
+    .intro-stat-lbl { font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:1px; text-transform:uppercase; }
+    .schemes-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+    .scheme-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:28px; display:flex; gap:20px; transition:var(--transition); }
+    .scheme-card:hover { box-shadow:var(--shadow-md); border-color:var(--primary); }
+    .scheme-icon-wrap { width:58px; height:58px; background:var(--cream); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
+    .scheme-name { font-size:17px; margin-bottom:6px; }
+    .scheme-coverage { margin-bottom:10px; }
+    .scheme-who { font-size:12px; color:var(--muted); margin-bottom:10px; font-weight:600; }
+    .scheme-who em { font-style:normal; color:var(--secondary-dk); }
+    .scheme-desc { font-size:13.5px; color:var(--body-text); line-height:1.65; }
+    .emergency-box { background:var(--secondary); border-radius:var(--radius-md); padding:32px 40px; margin-top:48px; display:flex; align-items:center; gap:32px; }
+    .emergency-box .em-icon { font-size:48px; flex-shrink:0; }
+    .emergency-box h3 { font-family:'Manrope','Noto Sans Tamil',sans-serif; color:var(--white); font-size:24px; margin-bottom:8px; }
+    .emergency-box p { color:rgba(255,255,255,0.82); font-size:14px; }
+    .emergency-box .em-number { font-family:'Manrope','Noto Sans Tamil',sans-serif; font-size:48px; color:var(--white); font-weight:900; letter-spacing:2px; margin-left:auto; }
+    @media(max-width:900px) {
+      .patients-body { padding:40px 20px; }
+      .schemes-grid { grid-template-columns:1fr; }
+      .intro-block { grid-template-columns:1fr; padding:28px 24px; }
+      .intro-stats { text-align:left; flex-direction:row; }
+      .emergency-box { flex-direction:column; text-align:center; }
+      .emergency-box .em-number { margin:0; }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar"></nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-breadcrumb">
+      <a href="/index.html" id="breadHome">Home</a> › <span id="breadCurrent">Patient Benefits</span>
+    </div>
+    <h1 id="pageTitle">Patient Benefits & Schemes</h1>
+    <p id="pageDesc">Information about services, medicines, diagnostics, and schemes for patients of Erode Government Hospital. Eligibility and coverage vary by programme.</p>
+  </div>
+</div>
+
+<div class="patients-body">
+  <div class="intro-block">
+    <div>
+      <h2 id="introTitle">Patient Services &amp; Government Schemes</h2>
+      <p id="introDesc">Explore the services and programmes available at Thanthai Periyar Government Headquarters Hospital. Eligibility and coverage depend on the scheme and patient category.</p>
+    </div>
+    <div class="intro-stats">
+      <div><div class="intro-stat-val">₹5L</div><div class="intro-stat-lbl" id="stat1Lbl">Max CMCHIS Coverage</div></div>
+      <div><div class="intro-stat-val">250+</div><div class="intro-stat-lbl" id="stat2Lbl">Essential Medicines</div></div>
+    </div>
+  </div>
+
+  <span class="section-label" id="schemesLabel">Government Schemes</span>
+  <h2 class="section-title" id="schemesTitle" style="margin-bottom:32px">Available Programmes</h2>
+  <div class="schemes-grid" id="schemesGrid">
+    <div class="loading-box"><div class="spinner"></div>Loading...</div>
+  </div>
+
+  <div class="emergency-box">
+    <div class="em-icon">🚑</div>
+    <div>
+      <h3 id="emTitle">Emergency Ambulance — 24/7</h3>
+      <p id="emDesc">Call 108 from anywhere in Erode district for an equipped emergency ambulance.</p>
+    </div>
+    <div class="em-number">108</div>
+  </div>
+</div>
+
+<footer class="footer" id="footer"></footer>
+<script src="/shared.js"></script>
+<script>
+function renderPatients(data) {
+  const lang = localStorage.getItem('gh_lang') || 'en';
+  const isTa = lang === 'ta';
+
+  document.getElementById('breadHome').textContent    = isTa ? 'முகப்பு'              : 'Home';
+  document.getElementById('breadCurrent').textContent = isTa ? 'நோயாளி நலன்கள்'      : 'Patient Benefits';
+  document.getElementById('pageTitle').textContent    = isTa ? 'நோயாளி நலன்கள் & திட்டங்கள்' : 'Patient Benefits & Schemes';
+  document.getElementById('pageDesc').textContent     = isTa ? 'ஈரோடு அரசு மருத்துவமனை நோயாளிகளுக்கான சேவைகள், மருந்துகள், பரிசோதனைகள் மற்றும் திட்டங்கள் பற்றிய தகவல். தகுதி மற்றும் காப்பீடு திட்டத்தைப் பொறுத்து மாறுபடும்.' : 'Information about services, medicines, diagnostics, and schemes for patients of Erode Government Hospital. Eligibility and coverage vary by programme.';
+  document.getElementById('introTitle').textContent   = isTa ? 'நோயாளி சேவைகள் மற்றும் அரசு திட்டங்கள்' : 'Patient Services & Government Schemes';
+  document.getElementById('introDesc').textContent    = isTa ? 'தந்தை பெரியார் அரசு தலைமை மருத்துவமனையில் கிடைக்கும் சேவைகள் மற்றும் திட்டங்களை அறியவும். தகுதி மற்றும் காப்பீடு திட்டம் மற்றும் நோயாளி வகையைப் பொறுத்து மாறுபடும்.' : 'Explore the services and programmes available at Thanthai Periyar Government Headquarters Hospital. Eligibility and coverage depend on the scheme and patient category.';
+  document.getElementById('stat1Lbl').textContent     = isTa ? 'CMCHIS அதிகபட்ச காப்பீடு' : 'Max CMCHIS Coverage';
+  document.getElementById('stat2Lbl').textContent     = isTa ? 'அத்தியாவசிய மருந்துகள்'      : 'Essential Medicines';
+  document.getElementById('schemesLabel').textContent = isTa ? 'அரசு திட்டங்கள்'            : 'Government Schemes';
+  document.getElementById('schemesTitle').textContent = isTa ? 'கிடைக்கும் திட்டங்கள்' : 'Available Programmes';
+  document.getElementById('emTitle').textContent      = isTa ? 'அவசர ஆம்புலன்ஸ் — 24/7' : 'Emergency Ambulance — 24/7';
+  document.getElementById('emDesc').textContent       = isTa ? 'ஈரோடு மாவட்டம் எங்கிருந்தும் 108 அழைத்து அவசர ஆம்புலன்ஸை அணுகவும்.' : 'Call 108 from anywhere in Erode district for an equipped emergency ambulance.';
+
+  document.getElementById('schemesGrid').innerHTML = (data.schemes || []).map((s, i) => `
+    <div class="scheme-card fade-up" style="animation-delay:${i*0.06}s">
+      <div class="scheme-icon-wrap">${s.icon}</div>
+      <div>
+        <h3 class="scheme-name">${isTa ? s.name_ta : s.name_en}</h3>
+        <div class="scheme-coverage"><span class="badge badge-teal">${isTa ? s.coverage_ta : s.coverage_en}</span></div>
+        <div class="scheme-who">${isTa ? 'தகுதியானவர்கள்' : 'Eligible'}: <em>${isTa ? s.who_ta : s.who_en}</em></div>
+        <p class="scheme-desc">${isTa ? s.desc_ta : s.desc_en}</p>
+      </div>
+    </div>`).join('');
+}
+
+async function loadPatients() {
+  try {
+    const data = await loadHospitalData();
+    renderPatients(data);
+    document.addEventListener('langchange', () => renderPatients(data));
+  } catch(e) { console.error(e); }
+}
+document.addEventListener('DOMContentLoaded', loadPatients);
+</script>
+</body>
+</html>

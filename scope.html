@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico"/>
+  <link rel="apple-touch-icon" href="/public/favicon-192.png"/>
+  <link rel="shortcut icon" href="/public/favicon.ico"/>
+  <title>Scope of Services — Thanthai Periyar Govt Hospital Erode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <style>
+    .scope-body { max-width:1100px; margin:0 auto; padding:64px 48px; }
+
+    /* Intro banner */
+    .scope-intro {
+      background:linear-gradient(135deg,var(--primary) 0%,var(--primary-lt) 100%);
+      border-radius:16px; padding:40px 48px; margin-bottom:56px;
+      display:flex; align-items:center; gap:32px;
+    }
+    .scope-intro-icon { font-size:56px; flex-shrink:0; }
+    .scope-intro-text h2 { font-family:'Manrope','Noto Sans Tamil',sans-serif; color:#fff; font-size:clamp(16px,2vw,22px); margin-bottom:8px; line-height:1.35; }
+    .scope-intro-text p  { color:rgba(255,255,255,0.72); font-size:14px; line-height:1.75; margin:0; }
+
+    /* Section */
+    .scope-section { margin-bottom:48px; }
+    .scope-section-header {
+      display:flex; align-items:center; gap:14px; margin-bottom:24px;
+      padding-bottom:14px; border-bottom:2px solid var(--border);
+    }
+    .scope-section-icon {
+      width:48px; height:48px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; flex-shrink:0;
+    }
+    .icon-24hr    { background:#fff3e0; }
+    .icon-general { background:#e8f5e9; }
+    .icon-super   { background:#e8eaf6; }
+    .icon-invest  { background:#fce4ec; }
+    .icon-allied  { background:#e0f7fa; }
+    .icon-aux     { background:#f3e5f5; }
+    .icon-nonscope{ background:#ffebee; }
+
+    .scope-section-header h2 { font-size:22px; color:var(--primary); margin:0; }
+    .scope-section-header .scope-subtitle { font-size:13px; color:var(--muted); margin:4px 0 0; font-weight:500; }
+
+    /* Service grids */
+    .services-grid       { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .services-grid.two-col { grid-template-columns:repeat(2,1fr); }
+
+    .service-item {
+      display:flex; align-items:flex-start; gap:10px;
+      background:var(--white); border:1px solid var(--border);
+      border-radius:10px; padding:14px 16px;
+      transition:box-shadow 0.2s,border-color 0.2s;
+    }
+    .service-item:hover { box-shadow:0 4px 16px rgba(13,43,69,0.09); border-color:var(--primary); }
+    .service-item.nonscope-item { border-color:#fecaca; }
+    .service-item.nonscope-item:hover { border-color:#ef4444; }
+
+    .service-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+    .dot-24hr    { background:#f59e0b; }
+    .dot-general { background:#10b981; }
+    .dot-super   { background:#6366f1; }
+    .dot-invest  { background:#ec4899; }
+    .dot-allied  { background:#06b6d4; }
+    .dot-aux     { background:#a855f7; }
+    .dot-nonscope{ background:#ef4444; }
+
+    .service-text { flex:1; }
+    .service-name { font-size:14px; font-weight:600; color:var(--primary); line-height:1.3; }
+    .service-name-sub { font-size:12px; color:var(--muted); margin-top:3px; }
+
+    /* Non-scope note */
+    .nonscope-note {
+      display:flex; gap:14px; align-items:flex-start;
+      background:#fff5f5; border:1px solid #fecaca; border-radius:12px;
+      padding:20px 24px; margin-bottom:16px;
+    }
+    .nonscope-note .ns-icon { font-size:24px; flex-shrink:0; }
+    .nonscope-note p { font-size:13.5px; color:#7f1d1d; line-height:1.65; margin:0; }
+
+    @media(max-width:900px) {
+      .scope-body { padding:40px 20px; }
+      .services-grid { grid-template-columns:repeat(2,1fr); }
+      .services-grid.two-col { grid-template-columns:1fr; }
+      .scope-intro { flex-direction:column; padding:28px 24px; }
+    }
+    @media(max-width:560px) {
+      .services-grid,.services-grid.two-col { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar"></nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-breadcrumb">
+      <a href="/index.html" id="breadHome">Home</a> ›
+      <span id="breadCurrent">Scope of Services</span>
+    </div>
+    <h1 id="pageTitle">Scope of Services</h1>
+    <p id="pageDesc">Complete range of medical, surgical, diagnostic and allied services offered at Thanthai Periyar Government Headquarters Hospital, Erode.</p>
+  </div>
+</div>
+
+<div class="scope-body">
+  <div class="scope-intro">
+    <div class="scope-intro-icon">🏥</div>
+    <div class="scope-intro-text">
+      <h2 id="introTitle"></h2>
+      <p id="introDesc"></p>
+    </div>
+  </div>
+
+  <!-- Sections rendered by JS -->
+  <div id="scopeSections"></div>
+</div>
+
+<footer class="footer" id="footer"></footer>
+<script src="/shared.js"></script>
+<script>
+function renderScope(data) {
+  const lang = localStorage.getItem('gh_lang') || 'en';
+  const isTa = lang === 'ta';
+  const sc   = data.scope;
+
+  // Page hero
+  document.getElementById('breadHome').textContent    = isTa ? 'முகப்பு'       : 'Home';
+  document.getElementById('breadCurrent').textContent = isTa ? sc.page_hero.breadcrumb_ta : sc.page_hero.breadcrumb_en;
+  document.getElementById('pageTitle').textContent    = isTa ? sc.page_hero.title_ta      : sc.page_hero.title_en;
+  document.getElementById('pageDesc').textContent     = isTa ? sc.page_hero.desc_ta       : sc.page_hero.desc_en;
+
+  // Intro banner
+  document.getElementById('introTitle').textContent   = isTa ? sc.intro.title_ta : sc.intro.title_en;
+  document.getElementById('introDesc').textContent    = isTa ? sc.intro.desc_ta  : sc.intro.desc_en;
+
+  // Sections
+  document.getElementById('scopeSections').innerHTML = sc.sections.map(section => {
+    const gridClass = section.grid === 'two-col' ? 'services-grid two-col' : 'services-grid';
+    const isNonscope = section.is_nonscope;
+
+    const nonscopeNote = isNonscope ? `
+      <div class="nonscope-note">
+        <span class="ns-icon">⚠️</span>
+        <p>${isTa ? sc.nonscope_note.ta : sc.nonscope_note.en}</p>
+      </div>` : '';
+
+    const items = section.services.map(svc => `
+      <div class="service-item${isNonscope ? ' nonscope-item' : ''}">
+        <span class="service-dot ${section.dot_class}"></span>
+        <div class="service-text">
+          <div class="service-name">${isTa ? svc.ta : svc.en}</div>
+          <div class="service-name-sub">${isTa ? svc.en : svc.ta}</div>
+        </div>
+      </div>`).join('');
+
+    return `
+    <div class="scope-section fade-up">
+      <div class="scope-section-header">
+        <div class="scope-section-icon ${section.icon_class}">${section.icon}</div>
+        <div>
+          <h2>${isTa ? section.title_ta : section.title_en}</h2>
+          <p class="scope-subtitle">${isTa ? section.subtitle_ta : section.subtitle_en}</p>
+        </div>
+      </div>
+      ${nonscopeNote}
+      <div class="${gridClass}">${items}</div>
+    </div>`;
+  }).join('');
+}
+
+async function loadScope() {
+  try {
+    const data = await loadHospitalData();
+    renderScope(data);
+    document.addEventListener('langchange', () => renderScope(data));
+  } catch(e) { console.error(e); }
+}
+
+document.addEventListener('DOMContentLoaded', loadScope);
+</script>
+</body>
+</html>
